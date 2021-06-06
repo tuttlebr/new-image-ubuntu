@@ -1,4 +1,5 @@
 #!/bin/bash --init-file
+clear
 
 . /etc/os-release
 
@@ -22,6 +23,7 @@ as_user(){
     cmd="bash -c '$@'"
     eval $cmd
 }
+
 echo "=== Bringing host up-to-date ==="
 as_sudo "apt-get -yq --fix-missing update"
 as_sudo "apt-get -yq install ${DEPS_DEB[@]}"
@@ -29,11 +31,13 @@ as_sudo "apt-get check"
 as_sudo "apt-get autoremove"
 as_sudo "apt-get clean"
 as_sudo "apt-get autoclean"
+echo
 
 echo "=== Modifying the MOTD ==="
 as_sudo "sed -i 's/ENABLED=1/ENABLED=0/g' /etc/default/motd-news"
+echo
 
-
+echo "=== Virtualenv setup ==="
 if command -v virtualenv &> /dev/null ; then
     sudo mkdir -p "${VENV_DIR}"
     sudo chown -R $(id -u):$(id -g) "${VENV_DIR}"
@@ -47,7 +51,7 @@ if command -v virtualenv &> /dev/null ; then
         current_version=$(pip show ansible | grep Version | awk '{print $2}')
 	echo "Current version of Ansible is ${current_version}"
 	if "${PYTHON_BIN}" -c "from distutils.version import LooseVersion; print(LooseVersion('$current_version') >= LooseVersion('$ANSIBLE_TOO_NEW'))" | grep True 2>&1 >/dev/null; then
-            echo "Ansible version ${current_version} too new for DeepOps"
+            echo "Ansible version ${current_version} too new."
 	    echo "Please uninstall any ansible, ansible-base, and ansible-core packages and re-run this script"
 	    exit 1
 	fi
@@ -67,32 +71,18 @@ else
     echo "ERROR: Unable to create Python virtual environment, 'virtualenv' command not found"
     exit 1
 fi
-
-# Install Ansible Galaxy roles
-if command -v ansible-galaxy &> /dev/null ; then
-    echo "=== Updating Ansible Galaxy roles ==="
-    as_user ansible-galaxy collection install --force -r roles/requirements.yml >/dev/null
-    as_user ansible-galaxy role install --force -r roles/requirements.yml >/dev/null
-    as_user ansible-galaxy collection install --force -i -r config/requirements.yml >/dev/null
-    as_user ansible-galaxy role install --force -i -r config/requirements.yml >/dev/null
-else
-    echo "ERROR: Unable to install Ansible Galaxy roles, 'ansible-galaxy' command not found"
-fi
-
-# Update submodules
-if command -v git &> /dev/null ; then
-    as_user git submodule update --init
-else
-    echo "ERROR: Unable to update Git submodules, 'git' command not found"
-fi
+echo
 
 # Add Ansible virtual env to PATH when using Bash
 if [ -f "${VENV_DIR}/bin/activate" ] ; then
     . "${VENV_DIR}/bin/activate"
     ansible localhost -m lineinfile -a "path=$HOME/.bashrc create=yes mode=0644 backup=yes line='source ${VENV_DIR}/bin/activate'"
 fi
+echo
 
-echo
-echo "=== REBOOTING NOW!!! ==="
-echo
-as_sudo "reboot
+if [ -f /var/run/reboot-required ]; then
+    echo "=== Reboot required ==="
+    as_sudo "reboot"
+else
+    echo "=== No reboot required ==="
+fi
