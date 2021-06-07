@@ -2,8 +2,8 @@
 # Server Inventory File
 #
 [all]
-olympus     ansible_host=192.168.50.58
-# daedalus    ansible_host=192.168.50.235
+olympus     ansible_host=192.168.50.58  ansible_user=brandon
+# daedalus    ansible_host=192.168.50.235   ansible_user=brandon
 
 [gpus]
 olympus
