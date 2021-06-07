@@ -3,7 +3,7 @@
 #
 [all]
 olympus     ansible_host=192.168.50.58
-daedalus    ansible_host=192.168.50.235
+# daedalus    ansible_host=192.168.50.235
 
 [gpus]
 olympus

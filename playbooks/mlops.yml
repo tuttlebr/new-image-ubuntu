@@ -28,6 +28,29 @@
   tags:
     - swap
 
+- name: Purge Docker
+  hosts: all
+  become: true
+  ignore_errors: true
+  tasks:
+     - name: removing old docker software
+       command: "apt purge -yq docker-ce docker-ce-cli containerd.io docker docker-engine docker.io containerd runc"
+
+- name: Download Docker
+  hosts: all
+  become: true
+  tasks:
+     - name: download docker isntall script
+       command: "curl -fsSL https://get.docker.com -o get-docker.sh"
+
+- name: Install Docker
+  hosts: all
+  become: true
+  ignore_errors: true
+  tasks:
+     - name: execute docker install
+       command: "sh get-docker.sh"
+
 # Install NVIDIA driver on GPU servers
 - include: nvidia-software/nvidia-driver.yml
   tags:
