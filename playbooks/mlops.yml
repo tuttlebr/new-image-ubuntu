@@ -1,0 +1,39 @@
+---
+# Kubernetes Cluster Playbook
+
+# Install python required for Ansible
+- include: bootstrap/bootstrap-python.yml
+  tags:
+    - bootstrap
+
+# Set up passwordless sudo and SSH keys if needed
+- include: bootstrap/bootstrap-ssh.yml
+  tags:
+    - bootstrap
+- include: bootstrap/bootstrap-sudo.yml
+  tags:
+    - bootstrap
+
+# Configure hostnames, /etc/hosts
+- include: generic/hosts.yml
+
+# Disable swap for kubernetes
+- hosts: all
+  become: true
+  tasks:
+    - name: remove swap from fstab
+      lineinfile: path=/etc/fstab regexp='swap' state=absent
+    - name: disable swap
+      command: swapoff -a
+  tags:
+    - swap
+
+# Install NVIDIA driver on GPU servers
+- include: nvidia-software/nvidia-driver.yml
+  tags:
+    - nvidia
+
+# Install NVIDIA container runtime on GPU servers
+- include: container/nvidia-docker.yml
+  tags:
+    - nvidia

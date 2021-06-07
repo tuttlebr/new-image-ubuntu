@@ -1,0 +1,21 @@
+---
+- hosts: "{{ hostlist | default('all') }}"
+  become: true
+  tags:
+  - nvidia
+  - nvidia_driver
+  tasks:
+    - name: install custom facts
+      include_role:
+        name: facts
+
+    - name: install nvidia driver
+      include_role:
+        name: nvidia.nvidia_driver
+      when: ansible_local['gpus']['count']
+
+    - name: test nvidia-smi
+      command: nvidia-smi
+      changed_when: false
+      when:
+        - ansible_local['gpus']['count']

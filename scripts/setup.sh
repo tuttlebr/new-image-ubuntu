@@ -73,6 +73,15 @@ else
 fi
 echo
 
+# Install Ansible Galaxy roles
+if command -v ansible-galaxy &> /dev/null ; then
+    echo "Updating Ansible Galaxy roles..."
+    as_user ansible-galaxy collection install --force -r roles/requirements.yml >/dev/null
+    as_user ansible-galaxy role install --force -r roles/requirements.yml >/dev/null
+else
+    echo "ERROR: Unable to install Ansible Galaxy roles, 'ansible-galaxy' command not found"
+fi
+
 # Add Ansible virtual env to PATH when using Bash
 if [ -f "${VENV_DIR}/bin/activate" ] ; then
     . "${VENV_DIR}/bin/activate"
