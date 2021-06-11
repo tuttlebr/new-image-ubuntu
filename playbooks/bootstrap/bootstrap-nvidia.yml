@@ -14,7 +14,7 @@
         dest: /root/NVIDIA-Linux-x86_64-460.84.run
         mode: '0100'
         force: true
-        checksum: md5:d3bbb779d61c10b62870489b1cb2b39e
+        checksum: md5:629d4f2a0d6f593aa4cf9b73983d3c8b
     - name: execute installation script
       ansible.builtin.command: /root/NVIDIA-Linux-x86_64-460.84.run --silent
     - name: test nvidia-smi
