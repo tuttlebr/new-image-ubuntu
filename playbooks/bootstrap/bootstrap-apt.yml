@@ -6,21 +6,22 @@
   tags:
   - update
   tasks:
-    - name: Run the equivalent of "apt-get update" as a separate step
+    - name: Refresh packages
       apt:
         update_cache: yes
-    - name: Update all packages to their latest version
-      apt:
-        name: "*"
-        state: latest
+        autoclean: yes
+        autoremove: yes
+        force_apt_get: yes
+        only_upgrade: yes
     - name: Reboot the server
       reboot:
-    - name: Run the equivalent of "apt-get update" as a separate step, again
+        reboot_timeout: 3600
+    - name: Refresh packages once more
       apt:
         update_cache: yes
-    - name: Update all packages to their latest version, again
-      apt:
-        name: "*"
-        state: latest
-    - name: Reboot the server, again
+        autoclean: yes
+        autoremove: yes
+        force_apt_get: yes
+        only_upgrade: yes
+    - name: Reboot the server once more
       reboot:
