@@ -1,6 +1,8 @@
 ---
 - hosts: gpus
   become: true
+  when: 
+    - nvidia-smi not in ansible_facts.packages
   tags:
   - Version_460.84
   - Release_Date_2021.6.3

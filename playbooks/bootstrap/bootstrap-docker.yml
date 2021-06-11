@@ -1,8 +1,10 @@
 ---
 - hosts: all
-  name: Purge Docker
+  name: Setup Docker
   become: true
   ignore_errors: true
+  when: 
+    - docker not in ansible_facts.packages
   tags:
   - docker
   tasks:
