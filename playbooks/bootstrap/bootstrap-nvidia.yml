@@ -15,15 +15,10 @@
         mode: '0100'
         force: true
         checksum: md5:629d4f2a0d6f593aa4cf9b73983d3c8b
-      when: 
-        - nvidia-smi not in ansible_facts.packages
     - name: execute installation script
       ansible.builtin.command: /root/NVIDIA-Linux-x86_64-460.84.run --silent
-      when: 
-        - nvidia-smi not in ansible_facts.packages
     - name: test nvidia-smi
       command: nvidia-smi
       changed_when: false
       when:
         - ansible_local['gpus']['count']
-        - nvidia-smi not in ansible_facts.packages
