@@ -8,6 +8,19 @@
   - Language_English_US
   - File Size_169.6MB
   tasks:
+    - name: unload nouveau
+    modprobe:
+      name: nouveau
+      state: absent
+    - name: blacklist nouveau
+      copy:
+        src: "blacklist-nouveau.conf"
+        dest: "/etc/modprobe.d/blacklist-nouveau.conf"
+        owner: "root"
+        group: "root"
+        mode: "0644"
+      notify:
+      - update-initramfs
     - name: download driver install runfile
       get_url:
         url: https://us.download.nvidia.com/XFree86/Linux-x86_64/460.84/NVIDIA-Linux-x86_64-460.84.run
