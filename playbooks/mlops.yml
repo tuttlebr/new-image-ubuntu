@@ -1,4 +1,8 @@
 ---
+- include: bootstrap/bootstrap-apt.yml
+  tags:
+    - bootstrap
+
 - include: bootstrap/bootstrap-python.yml
   tags:
     - bootstrap

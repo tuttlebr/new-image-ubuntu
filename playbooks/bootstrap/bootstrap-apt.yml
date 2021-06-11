@@ -1,0 +1,26 @@
+---
+- hosts: all
+  name: update apt
+  become: true
+  ignore_errors: true
+  tags:
+  - update
+  tasks:
+    - name: Run the equivalent of "apt-get update" as a separate step
+      apt:
+        update_cache: yes
+    - name: Update all packages to their latest version
+      apt:
+        name: "*"
+        state: latest
+    - name: Reboot the server
+      reboot:
+    - name: Run the equivalent of "apt-get update" as a separate step, again
+      apt:
+        update_cache: yes
+    - name: Update all packages to their latest version, again
+      apt:
+        name: "*"
+        state: latest
+    - name: Reboot the server, again
+      reboot:
