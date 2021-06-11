@@ -9,7 +9,7 @@
 scripts/setup.sh
 ```
 
-#### 2. Management Node Setup
+#### 2. Remote Node Setup
 ```bash
-scripts/setup.sh
+ansible-playbook playbooks/mlops.yml -k -K -v
 ```
