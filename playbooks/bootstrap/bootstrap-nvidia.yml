@@ -9,9 +9,9 @@
   - File Size_169.6MB
   tasks:
     - name: unload nouveau
-    modprobe:
-      name: nouveau
-      state: absent
+      modprobe:
+        name: nouveau
+        state: absent
     - name: blacklist nouveau
       copy:
         src: "blacklist-nouveau.conf"
