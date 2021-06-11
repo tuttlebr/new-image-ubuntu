@@ -12,7 +12,11 @@
         autoclean: yes
         autoremove: yes
         force_apt_get: yes
-        only_upgrade: yes
+        force: yes
+        install-recommends: no
+        purge: yes
+        state: build-dep
+        upgrade: safe
     - name: fix config
       ansible.builtin.command: dpkg --configure -a
     - name: Reboot the server
@@ -24,6 +28,10 @@
         autoclean: yes
         autoremove: yes
         force_apt_get: yes
-        only_upgrade: yes
+        force: yes
+        install-recommends: no
+        purge: yes
+        state: build-dep
+        upgrade: safe
     - name: Reboot the server once more
       reboot:
