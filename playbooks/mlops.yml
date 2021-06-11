@@ -20,13 +20,9 @@
     - bootstrap
 
 - include: bootstrap/bootstrap-docker.yml
-  when: 
-    - docker not in ansible_facts.packages
   tags:
     - bootstrap
 
 - include: bootstrap/bootstrap-nvidia.yml
-  when: 
-    - nvidia-smi not in ansible_facts.packages
   tags:
     - bootstrap
