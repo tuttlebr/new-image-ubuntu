@@ -1,0 +1,24 @@
+---
+- hosts: gpus
+  become: true
+  tags:
+  - Version_460.84
+  - Release_Date_2021.6.3
+  - Operating_System_Linux 64-bit
+  - Language_English_US
+  - File Size_169.6MB
+  tasks:
+    - name: download driver install runfile
+      get_url:
+        url: https://us.download.nvidia.com/XFree86/Linux-x86_64/460.84/NVIDIA-Linux-x86_64-460.84.run
+        dest: /root/NVIDIA-Linux-x86_64-460.84.run
+        mode: '0100'
+        force: true
+        checksum: md5:d3bbb779d61c10b62870489b1cb2b39e
+    - name: execute installation script
+      ansible.builtin.command: /root/NVIDIA-Linux-x86_64-460.84.run --silent
+    - name: test nvidia-smi
+      command: nvidia-smi
+      changed_when: false
+      when:
+        - ansible_local['gpus']['count']

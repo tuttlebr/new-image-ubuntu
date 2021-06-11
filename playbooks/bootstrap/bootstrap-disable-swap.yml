@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: remove swap from fstab
+      lineinfile: path=/etc/fstab regexp='swap' state=absent
+    - name: disable swap
+      command: swapoff -a
+  tags:
+    - swap

@@ -9,19 +9,5 @@ collections:
 
 roles:
 
-- src: https://github.com/DeepOps/ansible-role-users
-  name: DeepOps.users
-  version: 'e67df1db28bf099aa06d0ab250478963532b4d29'
-
-- src: https://github.com/DeepOps/ansible-role-hosts.git
-  version: '8311d6ecfe39b665a06d1fc55502c6916e9ab5ce'
-  name: DeepOps.hosts
-  
 - src: dev-sec.ssh-hardening
   version: "6.1.3"
-
-- src: nvidia.nvidia_driver
-  version: "v2.0.0"
-
-- src: nvidia.nvidia_docker
-  version: "v1.2.1"

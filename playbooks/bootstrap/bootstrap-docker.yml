@@ -1,0 +1,24 @@
+---
+- hosts: all
+  name: Purge Docker
+  become: true
+  ignore_errors: true
+  tags:
+  - docker
+  tasks:
+    - name: removing old docker software
+      ansible.builtin.command: "apt purge -yq docker-ce docker-ce-cli containerd.io docker docker-engine docker.io containerd runc"
+    - name: download docker install runfile
+      get_url:
+        url: https://get.docker.com
+        force: true
+        dest: /root/get-docker.sh
+        mode: '0100'
+    - name: execute docker installation script
+      ansible.builtin.command: /root/get-docker.sh
+    - name: set docker group permissions
+      ansible.builtin.command: groupadd docker
+    - name: set docker user permissions
+      ansible.builtin.command: usermod -aG docker $USER
+    - name: Reboot the server
+      reboot:

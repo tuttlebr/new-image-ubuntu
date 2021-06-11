@@ -1,62 +1,28 @@
 ---
-# Kubernetes Cluster Playbook
-
-# Install python required for Ansible
 - include: bootstrap/bootstrap-python.yml
   tags:
     - bootstrap
 
-# Set up passwordless sudo and SSH keys if needed
 - include: bootstrap/bootstrap-ssh.yml
   tags:
     - bootstrap
+
 - include: bootstrap/bootstrap-sudo.yml
   tags:
     - bootstrap
 
-# Configure hostnames, /etc/hosts
-- include: generic/hosts.yml
-
-# Disable swap for kubernetes
-- hosts: all
-  become: true
-  tasks:
-    - name: remove swap from fstab
-      lineinfile: path=/etc/fstab regexp='swap' state=absent
-    - name: disable swap
-      command: swapoff -a
+- include: bootstrap/hosts.yml
   tags:
-    - swap
+    - bootstrap
 
-- name: Purge Docker
-  hosts: all
-  become: true
-  ignore_errors: true
-  tasks:
-     - name: removing old docker software
-       command: "apt purge -yq docker-ce docker-ce-cli containerd.io docker docker-engine docker.io containerd runc"
-
-- name: Download Docker
-  hosts: all
-  become: true
-  tasks:
-     - name: download docker isntall script
-       command: "curl -fsSL https://get.docker.com -o get-docker.sh"
-
-- name: Install Docker
-  hosts: all
-  become: true
-  ignore_errors: true
-  tasks:
-     - name: execute docker install
-       command: "sh get-docker.sh"
-
-# Install NVIDIA driver on GPU servers
-- include: nvidia-software/nvidia-driver.yml
+- include: bootstrap/bootstrap-disable-swap.yml
   tags:
-    - nvidia
+    - bootstrap
 
-# Install NVIDIA container runtime on GPU servers
-- include: container/nvidia-docker.yml
+- include: bootstrap/bootstrap-docker.yml
   tags:
-    - nvidia
+    - bootstrap
+
+- include: bootstrap/bootstrap-nvidia.yml
+  tags:
+    - bootstrap
