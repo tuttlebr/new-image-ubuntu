@@ -9,19 +9,10 @@
   - Language_English_US
   - File Size_169.6MB
   tasks:
-    - name: unload nouveau
-      modprobe:
-        name: nouveau
-        state: absent
-    - name: blacklist nouveau
-      copy:
-        src: "blacklist-nouveau.conf"
-        dest: "/etc/modprobe.d/blacklist-nouveau.conf"
-        owner: "root"
-        group: "root"
-        mode: "0644"
-      notify:
-      - update-initramfs
+    - name: disable nouveau driver 1
+      ansible.builtin.command: bash -c "echo blacklist nouveau > /etc/modprobe.d/blacklist-nvidia-nouveau.conf"
+    - name: disable nouveau driver 2
+      ansible.builtin.command: bash -c "echo options nouveau modeset=0 >> /etc/modprobe.d/blacklist-nvidia-nouveau.conf"
     - name: Reboot the server for modprobe changes
       reboot:
     - name: download driver install runfile
