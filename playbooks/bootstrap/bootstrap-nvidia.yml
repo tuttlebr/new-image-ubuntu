@@ -1,6 +1,7 @@
 ---
 - hosts: gpus
   become: true
+  ignore_errors: true
   tags:
   - Version_460.84
   - Release_Date_2021.6.3
@@ -21,6 +22,8 @@
         mode: "0644"
       notify:
       - update-initramfs
+    - name: Reboot the server for modprobe changes
+      reboot:
     - name: download driver install runfile
       get_url:
         url: https://us.download.nvidia.com/XFree86/Linux-x86_64/460.84/NVIDIA-Linux-x86_64-460.84.run

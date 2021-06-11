@@ -16,11 +16,5 @@
         mode: '0100'
     - name: execute docker installation script
       ansible.builtin.command: /root/get-docker.sh
-    - name: set docker group permissions
-      ansible.builtin.command: groupadd docker
     - name: set docker user permissions
       ansible.builtin.command: usermod -aG docker {{ ansible_user }}
-    - name: Reboot the server
-      reboot:
-      when: 
-        - docker not in ansible_facts.packages
