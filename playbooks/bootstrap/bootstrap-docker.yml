@@ -19,6 +19,6 @@
     - name: set docker group permissions
       ansible.builtin.command: groupadd docker
     - name: set docker user permissions
-      ansible.builtin.command: usermod -aG docker $USER
+      ansible.builtin.command: usermod -aG docker {{ ansible_user }}
     - name: Reboot the server
       reboot:

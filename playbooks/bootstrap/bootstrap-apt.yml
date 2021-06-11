@@ -13,6 +13,8 @@
         autoremove: yes
         force_apt_get: yes
         only_upgrade: yes
+    - name: fix config
+      ansible.builtin.command: dpkg --configure -a
     - name: Reboot the server
       reboot:
         reboot_timeout: 3600
