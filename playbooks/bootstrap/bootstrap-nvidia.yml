@@ -26,3 +26,4 @@
       changed_when: false
       when:
         - ansible_local['gpus']['count']
+        - nvidia-smi not in ansible_facts.packages
