@@ -1,0 +1,7 @@
+---
+- hosts: gpus
+  become: true
+  ignore_errors: true
+  tasks:
+    - name: test GPUs
+      ansible.builtin.command: nvidia-smi
