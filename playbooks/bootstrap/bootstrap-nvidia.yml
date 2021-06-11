@@ -26,3 +26,14 @@
         checksum: md5:629d4f2a0d6f593aa4cf9b73983d3c8b
     - name: execute installation script
       ansible.builtin.command: /root/NVIDIA-Linux-x86_64-460.84.run --silent
+    - name: Refresh packages once more
+      apt:
+        update_cache: yes
+        autoclean: yes
+        autoremove: yes
+        force_apt_get: yes
+        only_upgrade: yes
+    - name: Reboot the server once more
+      reboot:
+    - name: test GPUs
+      ansible.builtin.command: nvidia-smi

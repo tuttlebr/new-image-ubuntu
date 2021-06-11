@@ -6,8 +6,6 @@
   tags:
   - docker
   tasks:
-    - name: removing old docker software
-      ansible.builtin.command: "apt purge -yq docker-ce docker-ce-cli containerd.io docker docker-engine docker.io containerd runc"
     - name: download docker install runfile
       get_url:
         url: https://get.docker.com
