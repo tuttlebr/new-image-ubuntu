@@ -5,6 +5,7 @@
   ignore_errors: true
   tags:
   - docker
-  tasks:
+    - name: update submodules
+      command: git submodule update --init
     - name: running docker compose
       ansible.builtin.command: docker-compose --file {{ playbook_dir | dirname | dirname }}/submodules/kubeflow-servers/docker-compose.yaml build --parallel
