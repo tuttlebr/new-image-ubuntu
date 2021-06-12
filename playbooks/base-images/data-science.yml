@@ -7,4 +7,4 @@
   - docker
   tasks:
     - name: running docker compose
-      ansible.builtin.command: docker-compose build --file {{ playbook_dir | dirname | dirname }}/submodule/kubeflow-servers/docker-compose.yaml --parallel
+      ansible.builtin.command: docker-compose build --file {{ playbook_dir | dirname | dirname }}/submodules/kubeflow-servers/docker-compose.yaml --parallel
