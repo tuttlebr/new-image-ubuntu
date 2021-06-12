@@ -1,3 +1,0 @@
-[submodule "submodules/kubeflow-servers"]
-	path = submodules/kubeflow-servers
-	url = https://github.com/tuttlebr/kubeflow-servers.git

@@ -7,8 +7,8 @@
     - docker
   tasks:
     - name: update submodules
-      ansible.builtin.command: git submodule update --init
+      ansible.builtin.command: git clone https://github.com/tuttlebr/kubeflow-servers.git /kubeflow-servers
     - name: running docker compose
       args:
-        chdir: "{{ playbook_dir | dirname | dirname }}/submodules/kubeflow-servers"
+        chdir: /kubeflow-servers
       ansible.builtin.command: docker-compose docker-compose.yaml build --parallel
