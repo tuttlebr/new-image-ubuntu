@@ -11,4 +11,4 @@
     - name: running docker compose
       args:
         chdir: /kubeflow-servers
-      ansible.builtin.command: docker-compose docker-compose.yaml build --parallel
+      ansible.builtin.command: docker-compose build --parallel
