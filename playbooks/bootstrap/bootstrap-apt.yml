@@ -21,7 +21,6 @@
       ansible.builtin.command: dpkg --configure -a
     - name: Reboot the server
       reboot:
-        reboot_timeout: 3600
     - name: Refresh packages once more
       apt:
         update_cache: yes
