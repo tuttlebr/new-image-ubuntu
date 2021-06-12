@@ -12,3 +12,5 @@
       args:
         chdir: /kubeflow-servers
       ansible.builtin.command: docker-compose build --parallel
+    - name: check builds
+      ansible.builtin.command: docker images
