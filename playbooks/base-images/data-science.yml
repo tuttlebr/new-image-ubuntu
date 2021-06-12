@@ -6,6 +6,8 @@
   tags:
   - docker
     - name: update submodules
-      command: git submodule update --init
+      ansible.builtin.command: git submodule update --init
     - name: running docker compose
-      ansible.builtin.command: docker-compose --file {{ playbook_dir | dirname | dirname }}/submodules/kubeflow-servers/docker-compose.yaml build --parallel
+      args:
+        chdir: "{{ playbook_dir | dirname | dirname }}/submodules/kubeflow-servers"
+      ansible.builtin.command: docker-compose docker-compose.yaml build --parallel
