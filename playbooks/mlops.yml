@@ -27,6 +27,6 @@
   tags:
     - bootstrap
 
-- include: submodules/data-science.yml
+- include: base-images/data-science.yml
   tags:
     - docker-compose
