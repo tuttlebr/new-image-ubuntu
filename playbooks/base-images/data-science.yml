@@ -1,5 +1,4 @@
 ---
-- include: ../submodules/kubeflow-servers/
 - hosts: gpus
   name: Building docker images
   become: true
@@ -8,4 +7,4 @@
   - docker
   tasks:
     - name: running docker compose
-      ansible.builtin.command: docker-compose build --parallel
+      ansible.builtin.command: docker-compose build --file {{ playbook_dir | dirname | dirname }}/submodule/kubeflow-servers/docker-compose.yaml --parallel
