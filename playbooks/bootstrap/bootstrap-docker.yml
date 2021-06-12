@@ -6,13 +6,21 @@
   tags:
   - docker
   tasks:
-    - name: download docker install runfile
+    - name: download docker
       get_url:
         url: https://get.docker.com
         force: true
         dest: /root/get-docker.sh
         mode: '0100'
-    - name: execute docker installation script
+    - name: install docker
       ansible.builtin.command: /root/get-docker.sh
     - name: set docker user permissions
       ansible.builtin.command: usermod -aG docker {{ ansible_user }}
+    - name: download docker compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
+        force: true
+        dest: /usr/local/bin/docker-compose
+        mode: '0100'
+    - name: install docker compose
+      ansible.builtin.command: /usr/local/bin/docker-compose

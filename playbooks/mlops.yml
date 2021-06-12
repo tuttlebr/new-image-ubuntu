@@ -26,3 +26,7 @@
 - include: bootstrap/bootstrap-nvidia.yml
   tags:
     - bootstrap
+
+- include: submodules/data-science.yml
+  tags:
+    - docker-compose

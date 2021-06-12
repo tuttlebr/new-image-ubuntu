@@ -1,0 +1,10 @@
+---
+- hosts: gpus
+  name: Building docker images
+  become: true
+  ignore_errors: true
+  tags:
+  - docker
+  tasks:
+    - name: running docker compose
+      ansible.builtin.command: docker-compose build --file ../../submodules/kubeflow-servers/docker-compose.yaml
