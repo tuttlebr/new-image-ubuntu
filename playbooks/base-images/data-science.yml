@@ -4,7 +4,8 @@
   become: true
   ignore_errors: true
   tags:
-  - docker
+    - docker
+  tasks:
     - name: update submodules
       ansible.builtin.command: git submodule update --init
     - name: running docker compose
