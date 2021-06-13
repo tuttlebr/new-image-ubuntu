@@ -32,5 +32,12 @@
         purge: yes
         state: build-dep
         upgrade: safe
+    - name: custom bashrc
+      copy:
+        content: "bashrc"
+        dest: "/etc/bash.bashrc"
+        owner: "root"
+        group: "root"
+        mode: "0100"
     - name: Reboot the server once more
       reboot:
