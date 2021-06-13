@@ -42,7 +42,7 @@
       register: distribution
     - name: add repo nvidia list
       shell: curl -s -L https://nvidia.github.io/nvidia-container-runtime/{{ distribution.stdout }}/nvidia-container-runtime.list | tee /etc/apt/sources.list.d/nvidia-container-runtime.list
-      name: install nvidia-container-runtime
+    - name: install nvidia-container-runtime
       apt:
         pkg:
           - nvidia-container-runtime
