@@ -44,6 +44,11 @@
       shell: curl -s -L https://nvidia.github.io/nvidia-container-runtime/{{ distribution.stdout }}/nvidia-container-runtime.list | tee /etc/apt/sources.list.d/nvidia-container-runtime.list
     - name: install nvidia-container-runtime
       apt:
+        update_cache: yes
+        autoclean: yes
+        autoremove: yes
+        force_apt_get: yes
+        only_upgrade: yes
         pkg:
           - nvidia-container-runtime
     - name: Reboot the server once more
