@@ -34,7 +34,7 @@
         upgrade: safe
     - name: custom bashrc
       ansible.builtin.copy:
-        src: bashrc
+        src: "{{ playbook_dir }}/bashrc"
         dest: "/etc/bash.bashrc"
         owner: "root"
         group: "root"
