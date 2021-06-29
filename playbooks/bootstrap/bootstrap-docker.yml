@@ -16,11 +16,24 @@
       ansible.builtin.command: /root/get-docker.sh
     - name: set docker user permissions
       ansible.builtin.command: usermod -aG docker {{ ansible_user }}
-    - name: download docker compose
+    - name: Reboot the server
+      reboot:
+    - name: download docker-compose
       get_url:
-        url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
+        url: https://github.com/docker/compose/releases/download/1.29.2/run.sh
         force: true
-        dest: /usr/local/bin/docker-compose
+        dest: /root/get-docker-compose.sh
         mode: '0100'
-    - name: install docker compose
-      ansible.builtin.command: /usr/local/bin/docker-compose
+    - name: install docker-compose
+      ansible.builtin.command: /root/get-docker-compose.sh
+    - name: install custom facts module
+      include_role:
+        name: facts
+      when: docker_install | default('yes')
+    - name: remove docker overrides
+      file:
+        path: /etc/systemd/system/docker.service.d/docker-override.conf
+        state: absent
+    - name: install nvidia-docker
+      include_role:
+        name: nvidia.nvidia_docker
