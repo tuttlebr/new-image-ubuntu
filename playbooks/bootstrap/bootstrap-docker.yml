@@ -22,10 +22,8 @@
       get_url:
         url: https://github.com/docker/compose/releases/download/1.29.2/run.sh
         force: true
-        dest: /root/get-docker-compose.sh
+        dest: /usr/bin/docker-compose
         mode: '0100'
-    - name: install docker-compose
-      ansible.builtin.command: /root/get-docker-compose.sh
     - name: install custom facts module
       include_role:
         name: facts
