@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: true
+  ignore_errors: true
+  tasks:
+    - name: make raid directory
+      ansible.builtin.command: mkdir /raid
+    - name: mount raid
+      ansible.builtin.command: mount /dev/md0 /raid
+    - name: edit fstab
+      ansible.builtin.command: echo "/dev/md0 /raid ext4 defaults 0 0" >> /etc/fstab
+    - name: update mdadm.conf
+      ansible.builtin.command: mdadm --detail --scan >> /etc/mdadm/mdadm.conf
+    - name: update initramfs
+      ansible.builtin.command: update-initramfs -u
