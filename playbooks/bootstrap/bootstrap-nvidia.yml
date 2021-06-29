@@ -9,9 +9,9 @@
   - Language_English_US
   - File Size_169.6MB
   tasks:
-    - name: disable nouveau driver 1
+    - name: disable nouveau - blacklist nouveau
       ansible.builtin.command: bash -c "echo blacklist nouveau > /etc/modprobe.d/blacklist-nvidia-nouveau.conf"
-    - name: disable nouveau driver 2
+    - name: disable nouveau - set modeset to 0
       ansible.builtin.command: bash -c "echo options nouveau modeset=0 >> /etc/modprobe.d/blacklist-nvidia-nouveau.conf"
     - name: disable nouveau - update initramfs
       ansible.builtin.command: update-initramfs -u
@@ -26,32 +26,5 @@
         checksum: md5:629d4f2a0d6f593aa4cf9b73983d3c8b
     - name: execute installation script
       ansible.builtin.command: /root/NVIDIA-Linux-x86_64-460.84.run --silent
-    - name: Refresh packages once more
-      apt:
-        update_cache: yes
-        autoclean: yes
-        autoremove: yes
-        force_apt_get: yes
-        only_upgrade: yes
-    - name: install nvidia container runtime repo
-      apt_key:
-        url: https://nvidia.github.io/nvidia-container-runtime/gpgkey
-        state: present
-    - name: get distribution on host
-      shell: . /etc/os-release;echo $ID$VERSION_ID
-      register: distribution
-    - name: add repo nvidia list
-      shell: curl -s -L https://nvidia.github.io/nvidia-container-runtime/{{ distribution.stdout }}/nvidia-container-runtime.list | tee /etc/apt/sources.list.d/nvidia-container-runtime.list
-    - name: install nvidia-container-runtime
-      apt:
-        update_cache: yes
-        autoclean: yes
-        autoremove: yes
-        force_apt_get: yes
-        only_upgrade: yes
-        pkg:
-          - nvidia-container-runtime
-    - name: Reboot the server once more
-      reboot:
     - name: test GPUs
       ansible.builtin.command: nvidia-smi

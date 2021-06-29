@@ -19,11 +19,15 @@
   tags:
     - bootstrap
 
+- include: bootstrap/bootstrap-nvidia.yml
+  tags:
+    - bootstrap
+
 - include: bootstrap/bootstrap-docker.yml
   tags:
     - bootstrap
 
-- include: bootstrap/bootstrap-nvidia.yml
+- include: bootstrap/bootstrap-raid.yml
   tags:
     - bootstrap
 
