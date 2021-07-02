@@ -13,3 +13,5 @@
       ansible.builtin.command: mdadm --detail --scan >> /etc/mdadm/mdadm.conf
     - name: update initramfs
       ansible.builtin.command: update-initramfs -u
+    - name: Reboot the server
+      reboot:

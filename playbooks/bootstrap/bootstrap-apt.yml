@@ -39,5 +39,3 @@
         owner: "root"
         group: "root"
         mode: "0555"
-    - name: Reboot the server once more
-      reboot:

@@ -16,8 +16,6 @@
       ansible.builtin.command: /root/get-docker.sh
     - name: set docker user permissions
       ansible.builtin.command: usermod -aG docker {{ ansible_user }}
-    - name: Reboot the server
-      reboot:
     - name: download docker-compose
       get_url:
         url: https://github.com/docker/compose/releases/download/1.29.2/run.sh
