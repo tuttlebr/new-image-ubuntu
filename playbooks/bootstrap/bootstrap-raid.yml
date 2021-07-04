@@ -3,9 +3,11 @@
   become: true
   ignore_errors: true
   tasks:
-    - name: make raid directory
+    - name: make /raid
       ansible.builtin.command: mkdir /raid
-    - name: mount raid
+    - name: make /dev/md0
+      ansible.builtin.command: mdadm --create /dev/md0 --level=1 --force --run --raid-devices=1 /dev/nvme1n1p1
+    - name: mount partition to /raid
       ansible.builtin.command: mount /dev/md0 /raid
     - name: edit fstab
       ansible.builtin.command: echo "/dev/md0 /raid ext4 defaults 0 0" >> /etc/fstab
