@@ -8,6 +8,8 @@
   tasks:
     - name: update submodules
       ansible.builtin.command: git clone https://github.com/tuttlebr/kubeflow-servers.git /kubeflow-servers
+    - name: update MLEs
+      ansible.builtin.command: git clone https://github.com/NVIDIA/DeepLearningExamples.git /DeepLearningExamples
     - name: running docker compose
       args:
         chdir: /kubeflow-servers

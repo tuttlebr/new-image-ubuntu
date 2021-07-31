@@ -32,6 +32,12 @@
         purge: yes
         state: build-dep
         upgrade: safe
+    - name: Install a list of packages
+      apt:
+        pkg:
+        - mdadm
+        - tree
+        - nano
     - name: custom bashrc
       ansible.builtin.copy:
         src: "{{ playbook_dir | dirname }}/bashrc"

@@ -2,6 +2,7 @@
 - hosts: all
   name: Setup Docker
   become: true
+  become_user: {{ ansible_user }}
   ignore_errors: true
   tags:
   - docker
