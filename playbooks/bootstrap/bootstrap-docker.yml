@@ -2,7 +2,6 @@
 - hosts: all
   name: Setup Docker
   become: true
-  become_user: brandon
   ignore_errors: true
   tags:
   - docker
@@ -16,7 +15,7 @@
     - name: install docker
       ansible.builtin.command: /root/get-docker.sh
     - name: set docker user permissions
-      ansible.builtin.command: usermod -aG docker {{ ansible_user }}
+      ansible.builtin.command: usermod -aG docker brandon
     - name: download docker-compose
       get_url:
         url: https://github.com/docker/compose/releases/download/1.29.2/run.sh
