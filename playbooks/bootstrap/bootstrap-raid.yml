@@ -1,6 +1,8 @@
 ---
 - hosts: all
-  become: true
+  become: yes
+  become_method: su
+  become_user: brandon
   ignore_errors: true
   tasks:
     - name: make /raid
