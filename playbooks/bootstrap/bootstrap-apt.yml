@@ -28,7 +28,7 @@
         autoremove: yes
         force_apt_get: yes
         force: yes
-        install-recommends: no
+        install-recommends: yes
         purge: yes
         state: build-dep
         upgrade: safe
@@ -38,6 +38,9 @@
         - mdadm
         - tree
         - nano
+        - gcc
+        - g++
+        - cmake
     - name: custom bashrc
       ansible.builtin.copy:
         src: "{{ playbook_dir | dirname }}/bashrc"
