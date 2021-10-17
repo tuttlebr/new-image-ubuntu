@@ -7,8 +7,12 @@
     - docker
   tasks:
     - name: update MLEs
-      ansible.builtin.command: git clone https://github.com/NVIDIA/DeepLearningExamples.git /home/brandon/DeepLearningExamples
+      ansible.builtin.git:
+        repo: https://github.com/NVIDIA/DeepLearningExamples.git
+        dest: /home/brandon/DeepLearningExamples
+    - name: copy docker compose file
+      ansible.builtin.copy:
+        src: docker-compose.yaml
+        dest: /home/brandon/docker-compose.yaml
     - name: running docker compose
-      args:
-        chdir: "{{ playbook_dir }}"
-      ansible.builtin.command: docker-compose pull
+      ansible.builtin.command: docker-compose --file /home/brandon/docker-compose.yaml pull

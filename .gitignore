@@ -10,3 +10,5 @@
 !/config.example/
 /roles/galaxy/
 /collections/*
+
+.DS_Store

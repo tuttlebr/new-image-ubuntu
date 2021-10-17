@@ -3,11 +3,11 @@
   become: true
   ignore_errors: true
   tags:
-  - Version_470.74
-  - Release_Date_2021.9.20
-  - Operating_System_Linux_64-bit
-  - Language_English_US
-  - File_Size_257.95_MB
+    - Version_470.74
+    - Release_Date_2021.9.20
+    - Operating_System_Linux_64-bit
+    - Language_English_US
+    - File_Size_257.95_MB
   tasks:
     - name: disable nouveau - blacklist nouveau
       ansible.builtin.command: bash -c "echo blacklist nouveau > /etc/modprobe.d/blacklist-nvidia-nouveau.conf"
@@ -21,9 +21,9 @@
       get_url:
         url: https://us.download.nvidia.com/XFree86/Linux-x86_64/470.74/NVIDIA-Linux-x86_64-470.74.run
         dest: /root/NVIDIA-Linux-x86_64-470.74.run
-        mode: '0100'
+        mode: "0100"
         force: true
-        checksum: md5:629d4f2a0d6f593aa4cf9b73983d3c8b
+        checksum: md5:279cbf4e1155a02e6a9f65e988794516
     - name: execute installation script
       ansible.builtin.command: /root/NVIDIA-Linux-x86_64-470.74.run --silent
     - name: test GPUs
