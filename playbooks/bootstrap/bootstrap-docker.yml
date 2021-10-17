@@ -16,11 +16,13 @@
       ansible.builtin.command: /root/get-docker.sh
     - name: set docker user permissions
       ansible.builtin.command: usermod -aG docker brandon
+    - name: newgrp docker
+      ansible.builtin.command: newgrp docker 
     - name: download docker-compose
       get_url:
-        url: https://github.com/docker/compose/releases/download/1.29.2/run.sh
+        url: https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-linux-x86_64
         force: true
-        dest: /usr/bin/docker-compose
+        dest: /usr/lib/docker/cli-plugins/docker-compose
         mode: '0100'
     - name: install custom facts module
       include_role:
