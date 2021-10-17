@@ -6,13 +6,9 @@
   tags:
     - docker
   tasks:
-    - name: update submodules
-      ansible.builtin.command: git clone https://github.com/tuttlebr/kubeflow-servers.git /kubeflow-servers
     - name: update MLEs
-      ansible.builtin.command: git clone https://github.com/NVIDIA/DeepLearningExamples.git /DeepLearningExamples
+      ansible.builtin.command: git clone https://github.com/NVIDIA/DeepLearningExamples.git /home/brandon/DeepLearningExamples
     - name: running docker compose
       args:
-        chdir: /kubeflow-servers
-      ansible.builtin.command: docker-compose build --parallel
-    - name: check builds
-      ansible.builtin.command: docker images
+        chdir: "{{ playbook_dir }}"
+      ansible.builtin.command: docker-compose pull
