@@ -1,21 +1,19 @@
 ---
 - hosts: all
   become: yes
-  become_method: su
-  become_user: brandon
   ignore_errors: true
   tasks:
     - name: make /raid
       ansible.builtin.command: mkdir /raid
-    - name: make /dev/md0
-      ansible.builtin.command: mdadm --create /dev/md0 --level=1 --force --run --raid-devices=1 /dev/nvme1n1p1
-    - name: mount partition to /raid
-      ansible.builtin.command: mount /dev/md0 /raid
-    - name: edit fstab
-      ansible.builtin.command: echo "/dev/md0 /raid ext4 defaults 0 0" >> /etc/fstab
-    - name: update mdadm.conf
-      ansible.builtin.command: mdadm --detail --scan >> /etc/mdadm/mdadm.conf
-    - name: update initramfs
-      ansible.builtin.command: update-initramfs -u
-    - name: Reboot the server
-      reboot:
+    # - name: make /dev/md0
+    #   ansible.builtin.command: mdadm --create /dev/md0 --level=1 --force --run --raid-devices=1 /dev/nvme1n1p1
+    # - name: mount partition to /raid
+    #   ansible.builtin.command: mount /dev/md0 /raid
+    # - name: edit fstab
+    #   ansible.builtin.command: echo "/dev/md0 /raid ext4 defaults 0 0" >> /etc/fstab
+    # - name: update mdadm.conf
+    #   ansible.builtin.command: mdadm --detail --scan >> /etc/mdadm/mdadm.conf
+    # - name: update initramfs
+    #   ansible.builtin.command: update-initramfs -u
+    # - name: Reboot the server
+    #   reboot:
